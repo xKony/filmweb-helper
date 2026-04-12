@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "version": "0.1.0",
+  "description": "__MSG_extensionDescription__",
+  "author": "kony",
+  "default_locale": "en_US",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "*://*.filmweb.pl/*"
+  ],
+  "background": {
+    "scripts": ["background/service-worker.js"],
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "assets/icons/icon-16.png",
+      "32": "assets/icons/icon-32.png",
+      "48": "assets/icons/icon-48.png",
+      "96": "assets/icons/icon-96.png"
+    }
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.filmweb.pl/*"],
+      "js": ["content/content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "icons": {
+    "16": "assets/icons/icon-16.png",
+    "32": "assets/icons/icon-32.png",
+    "48": "assets/icons/icon-48.png",
+    "96": "assets/icons/icon-96.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "filmweb-helper@kony.dev",
+      "strict_min_version": "109.0"
+    }
+  }
+}

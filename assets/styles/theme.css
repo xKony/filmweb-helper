@@ -1,0 +1,29 @@
+:root {
+  /* Colors */
+  --primary-color: #ffc200; /* Filmweb Yellow */
+  --primary-hover: #e5ae00;
+  --bg-color: #ffffff;
+  --bg-alt: #f5f5f5;
+  --text-color: #1a1a1a;
+  --text-muted: #666666;
+  --border-color: #e0e0e0;
+  --success-color: #28a745;
+  --error-color: #dc3545;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+
+  /* Typography */
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-size-base: 14px;
+  --font-size-lg: 18px;
+  --font-size-sm: 12px;
+
+  /* Misc */
+  --border-radius: 4px;
+  --transition-speed: 0.2s;
+  --shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

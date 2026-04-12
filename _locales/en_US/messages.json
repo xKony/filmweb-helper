@@ -1,0 +1,26 @@
+{
+  "extensionName": {
+    "message": "Filmweb Helper"
+  },
+  "extensionDescription": {
+    "message": "Enhances your Filmweb experience with rating filters and list randomizers."
+  },
+  "settingsTitle": {
+    "message": "Filmweb Helper Settings"
+  },
+  "saveSettings": {
+    "message": "Save Settings"
+  },
+  "settingsSaved": {
+    "message": "Settings saved successfully!"
+  },
+  "openOptions": {
+    "message": "Open Settings"
+  },
+  "randomizeMovie": {
+    "message": "Pick Random Movie"
+  },
+  "hideRatingsLabel": {
+    "message": "Hide ratings for unwatched movies"
+  }
+}
