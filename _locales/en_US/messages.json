@@ -20,7 +20,53 @@
   "randomizeMovie": {
     "message": "Pick Random Movie"
   },
+  "pickRandomButton": {
+    "message": "Pick random movie"
+  },
   "hideRatingsLabel": {
     "message": "Hide ratings for unwatched movies"
+  },
+  "randomizing": {
+    "message": "Drawing a random movie..."
+  },
+  "randomResult": {
+    "message": "Your pick"
+  },
+  "openFilm": {
+    "message": "Open on Filmweb"
+  },
+  "closeOverlay": {
+    "message": "Close"
+  },
+  "poolSize": {
+    "message": "Pool size: $1 movies",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "166"
+      }
+    }
+  },
+  "countMismatch": {
+    "message": "Warning: loaded $1 movies, but the page shows $2.",
+    "placeholders": {
+      "fetched": {
+        "content": "$1",
+        "example": "24"
+      },
+      "expected": {
+        "content": "$2",
+        "example": "166"
+      }
+    }
+  },
+  "errorNotLoggedIn": {
+    "message": "Log in to Filmweb and open your \"Want to see\" list."
+  },
+  "errorEmptyList": {
+    "message": "No movies found on your \"Want to see\" list."
+  },
+  "errorGeneric": {
+    "message": "Could not draw a random movie. Try again on Filmweb."
   }
 }

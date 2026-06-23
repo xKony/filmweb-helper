@@ -56,11 +56,45 @@ header h1 {
 
 .result-area {
   margin-top: var(--spacing-md);
-  padding: var(--spacing-sm);
+  padding: var(--spacing-md);
   background: var(--bg-alt);
   min-height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: var(--border-radius);
+  text-align: center;
+}
+
+.result-area.loading {
+  color: var(--text-muted);
+}
+
+.result-area.error {
+  color: var(--error-color);
+}
+
+.result-area.success strong {
+  display: block;
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-xs);
+}
+
+.result-year {
+  color: var(--text-muted);
+}
+
+.result-meta,
+.result-warning {
+  margin: var(--spacing-sm) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.result-warning {
+  color: #b45309;
+}
+
+.result-link {
+  display: inline-block;
+  margin-top: var(--spacing-sm);
+  color: var(--text-color);
+  font-weight: 700;
 }

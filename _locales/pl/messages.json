@@ -1,0 +1,72 @@
+{
+  "extensionName": {
+    "message": "Filmweb Helper"
+  },
+  "extensionDescription": {
+    "message": "Ułatwia korzystanie z Filmwebu — filtry ocen i losowanie filmów z listy „Chcę zobaczyć”."
+  },
+  "settingsTitle": {
+    "message": "Ustawienia Filmweb Helper"
+  },
+  "saveSettings": {
+    "message": "Zapisz ustawienia"
+  },
+  "settingsSaved": {
+    "message": "Ustawienia zapisane!"
+  },
+  "openOptions": {
+    "message": "Otwórz ustawienia"
+  },
+  "randomizeMovie": {
+    "message": "Wylosuj film"
+  },
+  "pickRandomButton": {
+    "message": "Wylosuj film"
+  },
+  "hideRatingsLabel": {
+    "message": "Ukryj oceny nieobejrzanych filmów"
+  },
+  "randomizing": {
+    "message": "Losowanie filmu..."
+  },
+  "randomResult": {
+    "message": "Wylosowano"
+  },
+  "openFilm": {
+    "message": "Otwórz na Filmwebie"
+  },
+  "closeOverlay": {
+    "message": "Zamknij"
+  },
+  "poolSize": {
+    "message": "Liczba filmów w puli: $1",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "166"
+      }
+    }
+  },
+  "countMismatch": {
+    "message": "Uwaga: pobrano $1 filmów, a na stronie widnieje $2.",
+    "placeholders": {
+      "fetched": {
+        "content": "$1",
+        "example": "24"
+      },
+      "expected": {
+        "content": "$2",
+        "example": "166"
+      }
+    }
+  },
+  "errorNotLoggedIn": {
+    "message": "Zaloguj się na Filmweb i otwórz listę „Chcę zobaczyć”."
+  },
+  "errorEmptyList": {
+    "message": "Nie znaleziono filmów na liście „Chcę zobaczyć”."
+  },
+  "errorGeneric": {
+    "message": "Nie udało się wylosować filmu. Spróbuj ponownie na Filmwebie."
+  }
+}
