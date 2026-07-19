@@ -17,6 +17,9 @@
   "openOptions": {
     "message": "Otwórz ustawienia"
   },
+  "popupSubtitle": {
+    "message": "Losowanie z listy „Chcę zobaczyć”"
+  },
   "randomizeMovie": {
     "message": "Wylosuj film"
   },

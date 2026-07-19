@@ -1,29 +1,39 @@
 :root {
-  /* Colors */
-  --primary-color: #ffc200; /* Filmweb Yellow */
-  --primary-hover: #e5ae00;
-  --bg-color: #ffffff;
-  --bg-alt: #f5f5f5;
-  --text-color: #1a1a1a;
-  --text-muted: #666666;
-  --border-color: #e0e0e0;
-  --success-color: #28a745;
-  --error-color: #dc3545;
+  /* Filmweb-inspired palette */
+  --fw-yellow: #ffc200;
+  --fw-yellow-hover: #e5ae00;
+  --fw-black: #121212;
+  --fw-ink: #1a1a1a;
+  --fw-surface: #1c1c1c;
+  --fw-surface-2: #262626;
+  --fw-border: #333333;
+  --fw-text: #f2f2f2;
+  --fw-text-muted: #a3a3a3;
+  --fw-danger: #ff6b6b;
+  --fw-warning: #f0a500;
 
-  /* Spacing */
+  /* Legacy aliases used across popup/options */
+  --primary-color: var(--fw-yellow);
+  --primary-hover: var(--fw-yellow-hover);
+  --bg-color: var(--fw-black);
+  --bg-alt: var(--fw-surface-2);
+  --text-color: var(--fw-text);
+  --text-muted: var(--fw-text-muted);
+  --border-color: var(--fw-border);
+  --success-color: var(--fw-yellow);
+  --error-color: var(--fw-danger);
+
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
 
-  /* Typography */
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
   --font-size-base: 14px;
   --font-size-lg: 18px;
   --font-size-sm: 12px;
 
-  /* Misc */
-  --border-radius: 4px;
-  --transition-speed: 0.2s;
-  --shadow: 0 2px 4px rgba(0,0,0,0.1);
+  --border-radius: 8px;
+  --transition-speed: 0.18s;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }

@@ -6,21 +6,27 @@
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <img src="../assets/icons/icon-32.png" alt="Logo" class="logo">
-      <h1 id="title">Filmweb Helper</h1>
+  <div class="popup">
+    <header class="popup-header">
+      <div class="brand">
+        <img src="../assets/icons/icon-32.png" alt="" class="brand-logo" width="28" height="28">
+        <div class="brand-copy">
+          <h1 id="title" class="brand-title">Filmweb Helper</h1>
+          <p id="subtitle" class="brand-subtitle"></p>
+        </div>
+      </div>
     </header>
-    
-    <main>
-      <button id="randomBtn" class="primary-btn">
+
+    <main class="popup-main">
+      <button id="randomBtn" class="btn btn-primary" type="button">
         <span id="randomText">Pick Random Movie</span>
       </button>
-      <div id="result" class="result-area"></div>
+
+      <section id="result" class="result" hidden></section>
     </main>
 
-    <footer>
-      <button id="optionsBtn" class="ghost-btn">Settings</button>
+    <footer class="popup-footer">
+      <button id="optionsBtn" class="btn btn-ghost" type="button">Settings</button>
     </footer>
   </div>
   <script src="../lib/browser-global.js"></script>

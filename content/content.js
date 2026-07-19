@@ -54,7 +54,7 @@ function showOverlay(movie) {
   const overlay = document.createElement('div');
   overlay.id = OVERLAY_ID;
   overlay.innerHTML = `
-    <div class="fwh-modal" role="dialog" aria-labelledby="fwh-modal-title">
+    <div class="fwh-modal" role="dialog" aria-modal="true" aria-labelledby="fwh-modal-title">
       <button type="button" class="fwh-close" aria-label="${t('closeOverlay')}">&times;</button>
       <p class="fwh-label">${t('randomResult')}</p>
       <h2 id="fwh-modal-title" class="fwh-title">${escapeHtml(movie.title)}</h2>
@@ -69,7 +69,7 @@ function showOverlay(movie) {
           ])}</p>`
         : ''}
       <p class="fwh-meta">${t('poolSize', [String(movie.totalCount)])}</p>
-      <a class="fwh-link" href="${movie.url}" target="_blank" rel="noopener">${t('openFilm')}</a>
+      <a class="fwh-link" href="${movie.url}">${t('openFilm')}</a>
     </div>
   `;
 
@@ -77,6 +77,12 @@ function showOverlay(movie) {
     if (event.target === overlay || event.target.closest('.fwh-close')) {
       overlay.remove();
     }
+  });
+
+  // Same-tab navigation on Filmweb (no new tab).
+  overlay.querySelector('.fwh-link')?.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.location.assign(movie.url);
   });
 
   (document.body || document.documentElement).appendChild(overlay);

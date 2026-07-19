@@ -1,5 +1,9 @@
 body {
-  background-color: var(--bg-alt);
+  margin: 0;
+  min-height: 100vh;
+  color: var(--fw-text);
+  background:
+    radial-gradient(ellipse at top, #2a2a2a 0%, var(--fw-black) 55%);
   font-family: var(--font-family);
   display: flex;
   justify-content: center;
@@ -7,18 +11,20 @@ body {
 }
 
 .container {
-  background: var(--bg-color);
+  background: var(--fw-surface);
+  border: 1px solid var(--fw-border);
   padding: var(--spacing-lg);
-  border-radius: var(--border-radius);
+  border-radius: 10px;
   box-shadow: var(--shadow);
   width: 100%;
-  max-width: 600px;
+  max-width: 560px;
 }
 
 h1 {
-  margin-top: 0;
-  border-bottom: 2px solid var(--primary-color);
+  margin: 0 0 var(--spacing-md);
   padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--fw-yellow);
+  font-size: 1.4rem;
 }
 
 .setting-group {
@@ -27,9 +33,9 @@ h1 {
 
 .setting-description {
   margin: var(--spacing-sm) 0 0;
-  color: #666666;
+  color: var(--fw-text-muted);
   font-size: 0.9rem;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .field-label {
@@ -41,10 +47,11 @@ h1 {
 .select-input {
   width: 100%;
   max-width: 240px;
-  padding: var(--spacing-sm);
-  border: 1px solid #cccccc;
-  border-radius: var(--border-radius);
-  background: var(--bg-color);
+  padding: 10px 12px;
+  border: 1px solid var(--fw-border);
+  border-radius: 6px;
+  background: var(--fw-surface-2);
+  color: var(--fw-text);
   font: inherit;
 }
 
@@ -61,17 +68,22 @@ h1 {
 }
 
 .primary-btn {
-  padding: var(--spacing-sm) var(--spacing-lg);
-  background: var(--primary-color);
+  padding: 10px 18px;
+  background: var(--fw-yellow);
   border: none;
-  border-radius: var(--border-radius);
+  border-radius: 6px;
+  color: var(--fw-ink);
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 700;
+}
+
+.primary-btn:hover {
+  background: var(--fw-yellow-hover);
 }
 
 .status-msg {
   margin-left: var(--spacing-md);
-  color: var(--success-color);
+  color: var(--fw-yellow);
   opacity: 0;
   transition: opacity var(--transition-speed);
 }

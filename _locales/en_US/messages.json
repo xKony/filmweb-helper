@@ -17,6 +17,9 @@
   "openOptions": {
     "message": "Open Settings"
   },
+  "popupSubtitle": {
+    "message": "Random picks from your want-to-see list"
+  },
   "randomizeMovie": {
     "message": "Pick Random Movie"
   },

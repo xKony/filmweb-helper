@@ -2,17 +2,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   const randomBtn = document.getElementById('randomBtn');
   const optionsBtn = document.getElementById('optionsBtn');
   const resultEl = document.getElementById('result');
+  const subtitleEl = document.getElementById('subtitle');
 
-  document.getElementById('randomText').textContent = browser.i18n.getMessage('randomizeMovie');
+  document.getElementById('randomText').textContent =
+    browser.i18n.getMessage('randomizeMovie');
   optionsBtn.textContent = browser.i18n.getMessage('openOptions');
+  subtitleEl.textContent = browser.i18n.getMessage('popupSubtitle');
 
   randomBtn.addEventListener('click', async () => {
     randomBtn.disabled = true;
-    resultEl.className = 'result-area loading';
+    resultEl.hidden = false;
+    resultEl.className = 'result is-loading';
     resultEl.textContent = browser.i18n.getMessage('randomizing');
 
     try {
-      const response = await browser.runtime.sendMessage({ action: 'getRandomMovie' });
+      const response = await browser.runtime.sendMessage({
+        action: 'getRandomMovie',
+      });
 
       if (!response) {
         throw new Error('NO_RESPONSE');
@@ -24,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       renderResult(resultEl, response.movie);
     } catch (error) {
-      resultEl.className = 'result-area error';
+      resultEl.className = 'result is-error';
       resultEl.textContent = getErrorMessage(error.message);
     } finally {
       randomBtn.disabled = false;
@@ -35,25 +41,41 @@ document.addEventListener('DOMContentLoaded', async () => {
     browser.runtime.openOptionsPage();
   });
 
-  const { lastRandomResult } = await browser.storage.local.get(['lastRandomResult']);
+  const { lastRandomResult } = await browser.storage.local.get([
+    'lastRandomResult',
+  ]);
   if (lastRandomResult) {
     renderResult(resultEl, lastRandomResult);
   }
 });
 
 function renderResult(container, movie) {
-  container.className = 'result-area success';
-  container.innerHTML = '';
+  container.hidden = false;
+  container.className = 'result is-success';
+  container.replaceChildren();
 
-  const title = document.createElement('strong');
+  const label = document.createElement('p');
+  label.className = 'result-label';
+  label.textContent = browser.i18n.getMessage('randomResult');
+  container.appendChild(label);
+
+  const title = document.createElement('h2');
+  title.className = 'result-title';
   title.textContent = movie.title;
   container.appendChild(title);
 
   if (movie.year) {
-    const year = document.createElement('span');
+    const year = document.createElement('p');
     year.className = 'result-year';
-    year.textContent = ` (${movie.year})`;
+    year.textContent = movie.year;
     container.appendChild(year);
+  }
+
+  if (movie.originalTitle && movie.originalTitle !== movie.title) {
+    const original = document.createElement('p');
+    original.className = 'result-original';
+    original.textContent = movie.originalTitle;
+    container.appendChild(original);
   }
 
   if (movie.countMismatch) {
@@ -68,16 +90,58 @@ function renderResult(container, movie) {
 
   const meta = document.createElement('p');
   meta.className = 'result-meta';
-  meta.textContent = browser.i18n.getMessage('poolSize', [String(movie.totalCount)]);
+  meta.textContent = browser.i18n.getMessage('poolSize', [
+    String(movie.totalCount),
+  ]);
   container.appendChild(meta);
 
-  const link = document.createElement('a');
-  link.href = movie.url;
-  link.target = '_blank';
-  link.rel = 'noopener';
-  link.textContent = browser.i18n.getMessage('openFilm');
-  link.className = 'result-link';
-  container.appendChild(link);
+  const actions = document.createElement('div');
+  actions.className = 'result-actions';
+
+  const openBtn = document.createElement('button');
+  openBtn.type = 'button';
+  openBtn.className = 'btn btn-open';
+  openBtn.textContent = browser.i18n.getMessage('openFilm');
+  openBtn.addEventListener('click', () => openMovieOnFilmweb(movie.url));
+  actions.appendChild(openBtn);
+
+  container.appendChild(actions);
+}
+
+/** Prefer navigating an existing Filmweb tab instead of opening a new one. */
+async function openMovieOnFilmweb(url) {
+  try {
+    const [activeTab] = await browser.tabs.query({
+      active: true,
+      currentWindow: true,
+    });
+
+    if (activeTab?.id && activeTab.url?.includes('filmweb.pl')) {
+      await browser.tabs.update(activeTab.id, { url });
+      window.close();
+      return;
+    }
+
+    const filmwebTabs = await browser.tabs.query({
+      url: ['*://www.filmweb.pl/*', '*://filmweb.pl/*'],
+    });
+
+    if (filmwebTabs[0]?.id) {
+      await browser.tabs.update(filmwebTabs[0].id, { url, active: true });
+      if (filmwebTabs[0].windowId != null) {
+        await browser.windows.update(filmwebTabs[0].windowId, {
+          focused: true,
+        });
+      }
+      window.close();
+      return;
+    }
+
+    await browser.tabs.create({ url });
+    window.close();
+  } catch {
+    await browser.tabs.create({ url });
+  }
 }
 
 function getErrorMessage(code) {
