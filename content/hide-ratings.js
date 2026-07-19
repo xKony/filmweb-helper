@@ -9,9 +9,11 @@
   const VOTE_TYPES = ['film', 'serial', 'videogame'];
   const COMMUNITY_SELECTORS = [
     '.filmRating--filmRate',
+    '.filmRating--filmCritic',
     '.rankingType__rateWrapper',
     '.filmRating--entityInUserTaste',
   ].join(', ');
+  const STORAGE_HINT = 'fwh-hide-ratings';
 
   let enabled = false;
   let username = null;
@@ -202,10 +204,20 @@
       document
         .querySelectorAll(`.${RATED_CLASS}`)
         .forEach((el) => el.classList.remove(RATED_CLASS));
+      try {
+        sessionStorage.setItem(STORAGE_HINT, '0');
+      } catch {
+        // Ignore.
+      }
       return;
     }
 
     document.documentElement.classList.add(ROOT_CLASS);
+    try {
+      sessionStorage.setItem(STORAGE_HINT, '1');
+    } catch {
+      // Ignore.
+    }
 
     document.querySelectorAll(COMMUNITY_SELECTORS).forEach((el) => {
       const id = findEntityId(el);
@@ -224,6 +236,9 @@
     const pageRated = isEntityRated(pageId);
     document
       .querySelector('.filmCoverSection__ratings')
+      ?.classList.toggle(RATED_CLASS, pageRated);
+    document
+      .querySelector('.filmCriticsVotesSection')
       ?.classList.toggle(RATED_CLASS, pageRated);
   }
 

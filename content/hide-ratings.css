@@ -1,0 +1,43 @@
+/* Censor scores as soon as this stylesheet loads (document_start).
+   No transitions on hide — transitions would flash the real value first. */
+
+html.fwh-hide-ratings .filmRating--filmRate:not(.fwh-rated),
+html.fwh-hide-ratings .filmRating--filmCritic:not(.fwh-rated),
+html.fwh-hide-ratings .rankingType__rateWrapper:not(.fwh-rated),
+html.fwh-hide-ratings .filmRating--entityInUserTaste:not(.fwh-rated),
+html.fwh-hide-ratings .filmCoverSection__ratings:not(.fwh-rated) .filmRating--filmRate,
+html.fwh-hide-ratings .filmCoverSection__ratings:not(.fwh-rated) .filmRating--filmCritic,
+html.fwh-hide-ratings .filmCoverSection__ratings:not(.fwh-rated) .filmRating--entityInUserTaste,
+html.fwh-hide-ratings .filmCriticsVotesSection:not(.fwh-rated) .filmRating,
+html.fwh-hide-ratings .filmCriticsVotesSection:not(.fwh-rated) [class*="rateValue"],
+html.fwh-hide-ratings .filmCriticsVotesSection:not(.fwh-rated) [class*="RateValue"] {
+  filter: blur(12px) !important;
+  opacity: 0.3 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+html.fwh-hide-ratings .filmRating--filmRate.fwh-rated,
+html.fwh-hide-ratings .filmRating--filmCritic.fwh-rated,
+html.fwh-hide-ratings .rankingType__rateWrapper.fwh-rated,
+html.fwh-hide-ratings .filmRating--entityInUserTaste.fwh-rated,
+html.fwh-hide-ratings .filmCoverSection__ratings.fwh-rated .filmRating--filmRate,
+html.fwh-hide-ratings .filmCoverSection__ratings.fwh-rated .filmRating--filmCritic,
+html.fwh-hide-ratings .filmCoverSection__ratings.fwh-rated .filmRating--entityInUserTaste,
+html.fwh-hide-ratings .filmCriticsVotesSection.fwh-rated .filmRating,
+html.fwh-hide-ratings .filmCriticsVotesSection.fwh-rated [class*="rateValue"],
+html.fwh-hide-ratings .filmCriticsVotesSection.fwh-rated [class*="RateValue"] {
+  filter: none !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  user-select: auto !important;
+}
+
+/* Keep the personal rating panel usable so the user can vote. */
+html.fwh-hide-ratings .ratingPanel,
+html.fwh-hide-ratings .filmRatingSection__filmActionBox {
+  filter: none !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  user-select: auto !important;
+}
