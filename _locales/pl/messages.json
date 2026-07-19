@@ -26,6 +26,9 @@
   "hideRatingsLabel": {
     "message": "Ukryj oceny nieobejrzanych filmów"
   },
+  "hideRatingsDescription": {
+    "message": "Oceny społeczności pozostają ukryte, dopóki nie ocenisz danego tytułu na Filmwebie. Panel Twojej oceny zostaje widoczny."
+  },
   "randomizing": {
     "message": "Losowanie filmu..."
   },

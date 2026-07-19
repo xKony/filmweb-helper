@@ -2,26 +2,31 @@ document.addEventListener('DOMContentLoaded', async () => {
   const hideRatingsInput = document.getElementById('hideRatings');
   const saveBtn = document.getElementById('saveBtn');
   const status = document.getElementById('status');
+  const description = document.getElementById('hideRatingsDescription');
 
-  // Localize
-  document.getElementById('pageTitle').textContent = browser.i18n.getMessage('settingsTitle');
-  document.getElementById('hideRatingsLabel').textContent = browser.i18n.getMessage('hideRatingsLabel');
+  document.getElementById('pageTitle').textContent =
+    browser.i18n.getMessage('settingsTitle');
+  document.getElementById('hideRatingsLabel').textContent =
+    browser.i18n.getMessage('hideRatingsLabel');
+  description.textContent = browser.i18n.getMessage('hideRatingsDescription');
   saveBtn.textContent = browser.i18n.getMessage('saveSettings');
 
-  // Load current settings
   const settings = await browser.storage.local.get(['hideRatings']);
-  hideRatingsInput.checked = settings.hideRatings || false;
+  hideRatingsInput.checked = settings.hideRatings === true;
 
-  saveBtn.addEventListener('click', async () => {
-    await browser.storage.local.set({
-      hideRatings: hideRatingsInput.checked
-    });
-
+  const showSaved = () => {
     status.textContent = browser.i18n.getMessage('settingsSaved');
     status.classList.add('visible');
-    
-    setTimeout(() => {
-      status.classList.remove('visible');
-    }, 2000);
-  });
+    window.setTimeout(() => status.classList.remove('visible'), 2000);
+  };
+
+  const saveSettings = async () => {
+    await browser.storage.local.set({
+      hideRatings: hideRatingsInput.checked,
+    });
+    showSaved();
+  };
+
+  hideRatingsInput.addEventListener('change', saveSettings);
+  saveBtn.addEventListener('click', saveSettings);
 });

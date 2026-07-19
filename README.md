@@ -44,6 +44,8 @@ W obu przypadkach wybierz folder repozytorium (ten, w którym leży `manifest.js
 
 Rozszerzenie pobiera **całą listę** przez publiczne API Filmwebu (`/api/v1/user/{nick}/want2see/film`), porównuje liczbę filmów z licznikiem na stronie i losuje jeden tytuł.
 
+Opcjonalnie (Ustawienia) możesz **ukryć oceny społeczności** dla tytułów, których jeszcze nie oceniłeś — ocena pojawia się dopiero po Twoim głosie.
+
 ## Struktura branchy
 
 - **`main`** — wspólny kod, szablony manifestów w `manifests/`, domyślnie manifest Chromium (Chrome / Edge)

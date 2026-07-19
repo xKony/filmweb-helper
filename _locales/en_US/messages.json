@@ -26,6 +26,9 @@
   "hideRatingsLabel": {
     "message": "Hide ratings for unwatched movies"
   },
+  "hideRatingsDescription": {
+    "message": "Community scores stay hidden until you rate that title on Filmweb. Your own rating panel stays visible."
+  },
   "randomizing": {
     "message": "Drawing a random movie..."
   },

@@ -25,6 +25,13 @@ h1 {
   margin: var(--spacing-lg) 0;
 }
 
+.setting-description {
+  margin: var(--spacing-sm) 0 0;
+  color: #666666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
 .switch-container {
   display: flex;
   align-items: center;

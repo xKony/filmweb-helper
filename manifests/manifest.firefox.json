@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extensionName__",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "__MSG_extensionDescription__",
   "author": "kony",
   "default_locale": "en_US",
@@ -32,7 +32,11 @@
   "content_scripts": [
     {
       "matches": ["*://*.filmweb.pl/*"],
-      "js": ["lib/browser-global.js", "content/content.js"],
+      "js": [
+        "lib/browser-global.js",
+        "content/hide-ratings.js",
+        "content/content.js"
+      ],
       "css": ["content/content.css"],
       "run_at": "document_idle"
     }
