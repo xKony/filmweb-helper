@@ -1,85 +1,103 @@
 # Filmweb Helper
 
-Polskie, nieoficjalne rozszerzenie przeglądarki do [Filmweba](https://www.filmweb.pl/) — m.in. losowanie filmów z listy **„Chcę zobaczyć”**, ukrywanie ocen przed obejrzeniem oraz szybki link do napisów na OpenSubtitles.
+Polskie, nieoficjalne rozszerzenie przeglądarki do [Filmweba](https://www.filmweb.pl/).
 
 > **Uwaga / Disclaimer:** ten projekt jest niezależny i **nie jest powiązany** z Filmweb Sp. z o.o. ani żadną spółką z grupy Filmweb / Ringier Axel Springer. Filmweb® jest znakiem towarowym swoich właścicieli. Rozszerzenie korzysta z publicznie dostępnych stron i API serwisu na własną odpowiedzialność użytkownika.
 
 Licencja: [MIT](./LICENSE).
 
-Obsługiwane przeglądarki:
+## Funkcje
 
-| Przeglądarka | Branch Git | Manifest |
-| --- | --- | --- |
-| Firefox | [`firefox`](./tree/firefox) | `background.scripts` + `browser_specific_settings.gecko` |
-| Google Chrome | [`chromium`](./tree/chromium) | `background.service_worker` |
-| Microsoft Edge | [`chromium`](./tree/chromium) | ten sam co Chrome |
+- **Losowanie filmu** z listy „Chcę zobaczyć” (przycisk na stronie profilu albo w popupie rozszerzenia)
+- **Ukrywanie ocen** społeczności i krytyków, dopóki sam nie ocenisz tytułu (włączane w ustawieniach)
+- **Link do napisów** na [OpenSubtitles.org](https://www.opensubtitles.org/) na stronach filmów i seriali (język PL/EN w ustawieniach)
 
-Kod aplikacji (`lib/`, `content/`, `popup/`, `background/`) jest wspólny. Różnią się tylko pliki `manifest.json` między branchami.
+## Obsługiwane przeglądarki
+
+Jeden wspólny kod źródłowy. Różnica między Chrome/Edge a Firefoksem to tylko plik `manifest.json` (szablony w `manifests/`).
+
+| Przeglądarka | Manifest |
+| --- | --- |
+| Google Chrome | `manifests/manifest.chromium.json` (domyślny w repo) |
+| Microsoft Edge | ten sam co Chrome |
+| Firefox | `manifests/manifest.firefox.json` |
 
 ## Instalacja
 
-### Firefox
+Sklonuj repozytorium:
 
 ```bash
-git checkout firefox
+git clone https://github.com/xKony/filmweb-helper.git
+cd filmweb-helper
 ```
+
+### Chrome / Edge (domyślny manifest)
+
+Repozytorium ma już ustawiony manifest Chromium w `manifest.json`.
+
+1. **Chrome:** `chrome://extensions` → **Tryb deweloperski** → **Załaduj rozpakowane**
+2. **Edge:** `edge://extensions` → **Tryb deweloperski** → **Załaduj rozpakowane**
+3. Wskaż folder repozytorium (ten z `manifest.json`)
+
+### Firefox
+
+Najpierw podmień manifest na wersję Firefoksa:
+
+```powershell
+# Windows (PowerShell)
+./scripts/use-manifest.ps1 firefox
+```
+
+```bash
+# Linux / macOS
+chmod +x scripts/use-manifest.sh
+./scripts/use-manifest.sh firefox
+```
+
+Potem:
 
 1. Otwórz `about:debugging`
 2. **Tymczasowe rozszerzenie** → **Załaduj tymczasowe rozszerzenie**
 3. Wskaż plik `manifest.json` z repozytorium
 
-### Chrome / Edge
+Aby wrócić do manifestu Chromium:
 
-```bash
-git checkout chromium
+```powershell
+./scripts/use-manifest.ps1 chromium
 ```
 
-**Chrome:** `chrome://extensions` → **Tryb deweloperski** → **Załaduj rozpakowane**
-
-**Edge:** `edge://extensions` → **Tryb deweloperski** → **Załaduj rozpakowane**
-
-W obu przypadkach wybierz folder repozytorium (ten, w którym leży `manifest.json`).
+```bash
+./scripts/use-manifest.sh chromium
+```
 
 ## Użycie
 
 1. Zaloguj się na Filmwebie.
-2. Otwórz listę filmów do obejrzenia, np. `https://www.filmweb.pl/user/TWOJ_NICK#/wantToSee/film`.
-3. Kliknij **Wylosuj film** (przycisk na stronie albo w popupie rozszerzenia).
+2. Otwórz swój profil / listę „Chcę zobaczyć”, np. `https://www.filmweb.pl/user/TWOJ_NICK#/wantToSee/film`.
+3. Kliknij **Wylosuj film** (przycisk na stronie albo w popupie).
+4. Opcje (ukrywanie ocen, język napisów) znajdziesz w **Ustawieniach** rozszerzenia.
 
-Rozszerzenie pobiera **całą listę** przez publiczne API Filmwebu (`/api/v1/user/{nick}/want2see/film`), porównuje liczbę filmów z licznikiem na stronie i losuje jeden tytuł.
+Losowanie pobiera listę przez publiczne API Filmwebu (`/api/v1/user/{nick}/want2see/film`).
 
-Opcjonalnie (Ustawienia) możesz **ukryć oceny społeczności** dla tytułów, których jeszcze nie oceniłeś — ocena pojawia się dopiero po Twoim głosie.
+## Struktura projektu
 
-Na stronach filmów i seriali pojawia się też link **Pobierz napisy** do [OpenSubtitles.org](https://www.opensubtitles.org/) (język PL/EN wybierasz w ustawieniach).
+| Ścieżka | Rola |
+| --- | --- |
+| `lib/` | Wspólna logika (API, napisy, polyfille) |
+| `content/` | Skrypty i style wstrzykiwane na filmweb.pl |
+| `background/` | Service worker / skrypty w tle |
+| `popup/` | Popup paska narzędzi |
+| `options/` | Strona ustawień |
+| `manifests/` | Szablony manifestów Chromium i Firefox |
+| `scripts/` | Przełączanie `manifest.json` lokalnie |
+| `_locales/` | Tłumaczenia PL / EN |
 
-## Struktura branchy
-
-- **`main`** — wspólny kod, szablony manifestów w `manifests/`, domyślnie manifest Chromium (Chrome / Edge)
-- **`firefox`** — gotowy manifest pod Firefoksa
-- **`chromium`** — gotowy manifest pod Chrome i Edge
-
-### Przełączanie manifestu lokalnie (bez zmiany brancha)
-
-Windows (PowerShell):
-
-```powershell
-./scripts/use-manifest.ps1 firefox
-./scripts/use-manifest.ps1 chromium
-```
-
-Linux / macOS:
-
-```bash
-chmod +x scripts/use-manifest.sh
-./scripts/use-manifest.sh firefox
-./scripts/use-manifest.sh chromium
-```
+Branch **`main`** — kod produkcyjny. Branch **`dev`** — bieżąca praca rozwojowa.
 
 ## Wymagania
 
-- Firefox 109+ (branch `firefox`)
-- Chrome / Edge 109+ (branch `chromium`)
-- Konto na Filmwebie z filmami na liście „Chcę zobaczyć”
+- Chrome / Edge 109+ lub Firefox 109+
+- Konto na Filmwebie (do losowania z własnej listy i wykrywania ocenionych tytułów)
 
 ## Licencja
 
