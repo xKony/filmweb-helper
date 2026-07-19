@@ -1,6 +1,10 @@
 # Filmweb Helper
 
-Rozszerzenie przeglądarki do losowania filmów z listy **„Chcę zobaczyć”** na [Filmwebie](https://www.filmweb.pl/).
+Polskie, nieoficjalne rozszerzenie przeglądarki do [Filmweba](https://www.filmweb.pl/) — m.in. losowanie filmów z listy **„Chcę zobaczyć”**, ukrywanie ocen przed obejrzeniem oraz szybki link do napisów na OpenSubtitles.
+
+> **Uwaga / Disclaimer:** ten projekt jest niezależny i **nie jest powiązany** z Filmweb Sp. z o.o. ani żadną spółką z grupy Filmweb / Ringier Axel Springer. Filmweb® jest znakiem towarowym swoich właścicieli. Rozszerzenie korzysta z publicznie dostępnych stron i API serwisu na własną odpowiedzialność użytkownika.
+
+Licencja: [MIT](./LICENSE).
 
 Obsługiwane przeglądarki:
 
@@ -76,3 +80,7 @@ chmod +x scripts/use-manifest.sh
 - Firefox 109+ (branch `firefox`)
 - Chrome / Edge 109+ (branch `chromium`)
 - Konto na Filmwebie z filmami na liście „Chcę zobaczyć”
+
+## Licencja
+
+Kod udostępniony na licencji [MIT](./LICENSE) — Copyright (c) 2026 xKony.
