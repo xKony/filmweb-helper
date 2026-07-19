@@ -14,8 +14,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       const response = await browser.runtime.sendMessage({ action: 'getRandomMovie' });
 
-      if (!response?.success) {
-        throw new Error(response?.error || 'UNKNOWN');
+      if (!response) {
+        throw new Error('NO_RESPONSE');
+      }
+
+      if (!response.success) {
+        throw new Error(response.error || 'UNKNOWN');
       }
 
       renderResult(resultEl, response.movie);
@@ -82,6 +86,8 @@ function getErrorMessage(code) {
       return browser.i18n.getMessage('errorNotLoggedIn');
     case 'EMPTY_LIST':
       return browser.i18n.getMessage('errorEmptyList');
+    case 'NO_RESPONSE':
+      return browser.i18n.getMessage('errorNoResponse');
     default:
       return browser.i18n.getMessage('errorGeneric');
   }

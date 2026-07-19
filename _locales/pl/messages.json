@@ -61,12 +61,15 @@
     }
   },
   "errorNotLoggedIn": {
-    "message": "Zaloguj się na Filmweb i otwórz listę „Chcę zobaczyć”."
+    "message": "Otwórz swój profil Filmwebu (filmweb.pl/user/TWOJ_NICK) i spróbuj ponownie."
   },
   "errorEmptyList": {
     "message": "Nie znaleziono filmów na liście „Chcę zobaczyć”."
   },
   "errorGeneric": {
-    "message": "Nie udało się wylosować filmu. Spróbuj ponownie na Filmwebie."
+    "message": "Nie udało się wylosować filmu. Odśwież stronę Filmwebu i spróbuj ponownie."
+  },
+  "errorNoResponse": {
+    "message": "Brak odpowiedzi rozszerzenia. Przeładuj je w ustawieniach przeglądarki."
   }
 }

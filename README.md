@@ -42,11 +42,11 @@ W obu przypadkach wybierz folder repozytorium (ten, w którym leży `manifest.js
 2. Otwórz listę filmów do obejrzenia, np. `https://www.filmweb.pl/user/TWOJ_NICK#/wantToSee/film`.
 3. Kliknij **Wylosuj film** (przycisk na stronie albo w popupie rozszerzenia).
 
-Rozszerzenie pobiera **całą listę** przez API Filmwebu (wszystkie strony paginacji), porównuje liczbę filmów z licznikiem na stronie i losuje jeden tytuł.
+Rozszerzenie pobiera **całą listę** przez publiczne API Filmwebu (`/api/v1/user/{nick}/want2see/film`), porównuje liczbę filmów z licznikiem na stronie i losuje jeden tytuł.
 
 ## Struktura branchy
 
-- **`main`** — wspólny kod, szablony manifestów w `manifests/`, domyślnie manifest Firefoksa
+- **`main`** — wspólny kod, szablony manifestów w `manifests/`, domyślnie manifest Chromium (Chrome / Edge)
 - **`firefox`** — gotowy manifest pod Firefoksa
 - **`chromium`** — gotowy manifest pod Chrome i Edge
 

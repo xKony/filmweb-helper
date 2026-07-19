@@ -1,33 +1,51 @@
-import browser from '../lib/browser.js';
-import {
-  extractUsername,
-  isWantToSeeFilmPage,
-  pickRandomWantToSeeFilm,
-} from '../lib/want2see.js';
-
 const BUTTON_ID = 'filmweb-helper-random-btn';
 const OVERLAY_ID = 'filmweb-helper-overlay';
+const NAV_EVENT = 'filmweb-helper:navigation';
 
 function t(key, substitutions) {
   return browser.i18n.getMessage(key, substitutions);
 }
 
+function extractUsername(url = window.location.href) {
+  const match = String(url).match(/\/user\/([^/?#]+)/i);
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
+function getPageRoute(url = window.location.href) {
+  const { pathname, search, hash } = new URL(url);
+  return `${pathname}${search}${hash}`.toLowerCase();
+}
+
+function shouldShowButton() {
+  return Boolean(extractUsername());
+}
+
 function ensureButton() {
-  if (!isWantToSeeFilmPage()) {
+  if (!shouldShowButton()) {
     document.getElementById(BUTTON_ID)?.remove();
     return;
   }
 
-  if (document.getElementById(BUTTON_ID)) {
+  let button = document.getElementById(BUTTON_ID);
+  if (button) {
     return;
   }
 
-  const button = document.createElement('button');
+  button = document.createElement('button');
   button.id = BUTTON_ID;
   button.type = 'button';
   button.textContent = t('pickRandomButton');
   button.addEventListener('click', () => runRandomPick(button));
-  document.body.appendChild(button);
+
+  (document.body || document.documentElement).appendChild(button);
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 function showOverlay(movie) {
@@ -61,15 +79,20 @@ function showOverlay(movie) {
     }
   });
 
-  document.body.appendChild(overlay);
+  (document.body || document.documentElement).appendChild(overlay);
 }
 
-function escapeHtml(value) {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+function getErrorMessage(code) {
+  switch (code) {
+    case 'NOT_LOGGED_IN':
+      return t('errorNotLoggedIn');
+    case 'EMPTY_LIST':
+      return t('errorEmptyList');
+    case 'NO_RESPONSE':
+      return t('errorNoResponse');
+    default:
+      return t('errorGeneric');
+  }
 }
 
 async function runRandomPick(button) {
@@ -78,26 +101,25 @@ async function runRandomPick(button) {
   button.textContent = t('randomizing');
 
   try {
-    const username = extractUsername(window.location.href);
-    const movie = await pickRandomWantToSeeFilm({ username });
-    await browser.storage.local.set({ lastRandomResult: movie });
-    showOverlay(movie);
+    const response = await browser.runtime.sendMessage({
+      action: 'getRandomMovie',
+      username: extractUsername(),
+    });
+
+    if (!response) {
+      throw new Error('NO_RESPONSE');
+    }
+
+    if (!response.success) {
+      throw new Error(response.error || 'UNKNOWN');
+    }
+
+    showOverlay(response.movie);
   } catch (error) {
-    alert(getErrorMessage(error));
+    alert(getErrorMessage(error.message));
   } finally {
     button.disabled = false;
     button.textContent = originalText;
-  }
-}
-
-function getErrorMessage(error) {
-  switch (error.message) {
-    case 'NOT_LOGGED_IN':
-      return t('errorNotLoggedIn');
-    case 'EMPTY_LIST':
-      return t('errorEmptyList');
-    default:
-      return t('errorGeneric');
   }
 }
 
@@ -118,36 +140,41 @@ function scheduleSync() {
   });
 }
 
+function patchHistoryMethod(method) {
+  const original = history[method];
+  history[method] = function patchedHistoryMethod(...args) {
+    const result = original.apply(this, args);
+    window.dispatchEvent(new Event(NAV_EVENT));
+    return result;
+  };
+}
+
+patchHistoryMethod('pushState');
+patchHistoryMethod('replaceState');
+
+window.addEventListener(NAV_EVENT, syncUi);
 window.addEventListener('hashchange', syncUi);
 window.addEventListener('popstate', syncUi);
 
-const observer = new MutationObserver(scheduleSync);
+let lastRoute = getPageRoute();
+setInterval(() => {
+  const route = getPageRoute();
+  if (route !== lastRoute) {
+    lastRoute = route;
+    syncUi();
+  }
+}, 500);
 
+const observer = new MutationObserver(scheduleSync);
 observer.observe(document.documentElement, {
   childList: true,
   subtree: true,
 });
 
 browser.runtime.onMessage.addListener((message) => {
-  if (message.action !== 'getRandomMovie') {
-    return undefined;
+  if (message.action === 'showOverlay' && message.movie) {
+    showOverlay(message.movie);
   }
-
-  const username =
-    message.username || extractUsername(window.location.href) || undefined;
-
-  return pickRandomWantToSeeFilm({ username })
-    .then(async (movie) => {
-      await browser.storage.local.set({ lastRandomResult: movie });
-      if (isWantToSeeFilmPage()) {
-        showOverlay(movie);
-      }
-      return { success: true, movie };
-    })
-    .catch((error) => ({
-      success: false,
-      error: error.message,
-    }));
 });
 
 if (document.readyState === 'loading') {
@@ -155,3 +182,6 @@ if (document.readyState === 'loading') {
 } else {
   syncUi();
 }
+
+setTimeout(syncUi, 1000);
+setTimeout(syncUi, 3000);

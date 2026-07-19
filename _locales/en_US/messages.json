@@ -61,12 +61,15 @@
     }
   },
   "errorNotLoggedIn": {
-    "message": "Log in to Filmweb and open your \"Want to see\" list."
+    "message": "Open your Filmweb profile page (filmweb.pl/user/YOUR_NICK) and try again."
   },
   "errorEmptyList": {
     "message": "No movies found on your \"Want to see\" list."
   },
   "errorGeneric": {
-    "message": "Could not draw a random movie. Try again on Filmweb."
+    "message": "Could not draw a random movie. Refresh Filmweb and try again."
+  },
+  "errorNoResponse": {
+    "message": "No response from the extension. Reload it in your browser settings."
   }
 }
