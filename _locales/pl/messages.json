@@ -29,6 +29,39 @@
   "hideRatingsDescription": {
     "message": "Oceny społeczności pozostają ukryte, dopóki nie ocenisz danego tytułu na Filmwebie. Panel Twojej oceny zostaje widoczny."
   },
+  "subtitlesLinkLabel": {
+    "message": "Pokaż link do napisów OpenSubtitles"
+  },
+  "subtitlesLinkDescription": {
+    "message": "Dodaje na stronach filmów i seriali link otwierający OpenSubtitles.org dla bieżącego tytułu."
+  },
+  "subtitleLanguageLabel": {
+    "message": "Język napisów"
+  },
+  "subtitleLanguagePolish": {
+    "message": "Polski"
+  },
+  "subtitleLanguageEnglish": {
+    "message": "Angielski"
+  },
+  "downloadSubtitlesLink": {
+    "message": "Pobierz napisy ($1)",
+    "placeholders": {
+      "language": {
+        "content": "$1",
+        "example": "Polski"
+      }
+    }
+  },
+  "downloadSubtitlesTitle": {
+    "message": "Szukaj napisów $1 na OpenSubtitles.org",
+    "placeholders": {
+      "language": {
+        "content": "$1",
+        "example": "Polski"
+      }
+    }
+  },
   "randomizing": {
     "message": "Losowanie filmu..."
   },

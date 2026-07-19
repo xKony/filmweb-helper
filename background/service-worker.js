@@ -55,6 +55,8 @@ browser.runtime.onInstalled.addListener(async ({ reason }) => {
   if (reason === 'install') {
     await browser.storage.local.set({
       hideRatings: false,
+      subtitlesLinkEnabled: true,
+      subtitleLanguage: 'pol',
       randomizerEnabled: true,
       lastRandomResult: null,
     });

@@ -21,6 +21,20 @@
         <p class="setting-description" id="hideRatingsDescription"></p>
       </section>
 
+      <section class="setting-group">
+        <label class="switch-container">
+          <input type="checkbox" id="subtitlesLinkEnabled" checked>
+          <span class="label-text" id="subtitlesLinkLabel">Show OpenSubtitles download link</span>
+        </label>
+        <p class="setting-description" id="subtitlesLinkDescription"></p>
+
+        <label class="field-label" for="subtitleLanguage" id="subtitleLanguageLabel">Subtitle language</label>
+        <select id="subtitleLanguage" class="select-input">
+          <option value="pol" id="subtitleLanguagePolishOption">Polish</option>
+          <option value="eng" id="subtitleLanguageEnglishOption">English</option>
+        </select>
+      </section>
+
       <section class="actions">
         <button id="saveBtn" class="primary-btn">Save Settings</button>
         <span id="status" class="status-msg"></span>

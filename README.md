@@ -46,6 +46,8 @@ Rozszerzenie pobiera **całą listę** przez publiczne API Filmwebu (`/api/v1/us
 
 Opcjonalnie (Ustawienia) możesz **ukryć oceny społeczności** dla tytułów, których jeszcze nie oceniłeś — ocena pojawia się dopiero po Twoim głosie.
 
+Na stronach filmów i seriali pojawia się też link **Pobierz napisy** do [OpenSubtitles.org](https://www.opensubtitles.org/) (język PL/EN wybierasz w ustawieniach).
+
 ## Struktura branchy
 
 - **`main`** — wspólny kod, szablony manifestów w `manifests/`, domyślnie manifest Chromium (Chrome / Edge)

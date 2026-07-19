@@ -32,6 +32,27 @@ h1 {
   line-height: 1.4;
 }
 
+.field-label {
+  display: block;
+  margin: var(--spacing-md) 0 var(--spacing-sm);
+  font-weight: 600;
+}
+
+.select-input {
+  width: 100%;
+  max-width: 240px;
+  padding: var(--spacing-sm);
+  border: 1px solid #cccccc;
+  border-radius: var(--border-radius);
+  background: var(--bg-color);
+  font: inherit;
+}
+
+.select-input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .switch-container {
   display: flex;
   align-items: center;

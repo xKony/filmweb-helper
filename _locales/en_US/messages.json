@@ -29,6 +29,39 @@
   "hideRatingsDescription": {
     "message": "Community scores stay hidden until you rate that title on Filmweb. Your own rating panel stays visible."
   },
+  "subtitlesLinkLabel": {
+    "message": "Show OpenSubtitles download link"
+  },
+  "subtitlesLinkDescription": {
+    "message": "Adds a link on film and series pages that opens OpenSubtitles.org for the current title."
+  },
+  "subtitleLanguageLabel": {
+    "message": "Subtitle language"
+  },
+  "subtitleLanguagePolish": {
+    "message": "Polish"
+  },
+  "subtitleLanguageEnglish": {
+    "message": "English"
+  },
+  "downloadSubtitlesLink": {
+    "message": "Download $1 subtitles",
+    "placeholders": {
+      "language": {
+        "content": "$1",
+        "example": "Polish"
+      }
+    }
+  },
+  "downloadSubtitlesTitle": {
+    "message": "Search OpenSubtitles.org for $1 subtitles",
+    "placeholders": {
+      "language": {
+        "content": "$1",
+        "example": "Polish"
+      }
+    }
+  },
   "randomizing": {
     "message": "Drawing a random movie..."
   },
